@@ -12,3 +12,4 @@
 /home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.pdb
 /home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.genruntimeconfig.cache
 /home/nyx/C#/OEscriba/obj/Debug/net8.0/ref/OEscriba.dll
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.sourcelink.json
