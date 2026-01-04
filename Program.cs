@@ -19,6 +19,8 @@ using System.Collections.Generic; // Necessário para usar List<string>
                 Console.WriteLine("===📜 O ESCRIBA DIGITAL 📜 ===");
                 Console.WriteLine("1 - Escrever nova memória");
                 Console.WriteLine("2 - Ler memórias antigas");
+                Console.WriteLine("3 - Apagar todas as memórias (opção secreta)");
+                Console.WriteLine("4 - Apagar uma memória específica");
                 Console.WriteLine("0 - Sair");
                 Console.Write("Qual o seu desejo? ");
 
