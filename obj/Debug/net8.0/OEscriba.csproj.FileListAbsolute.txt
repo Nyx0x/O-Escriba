@@ -1,0 +1,14 @@
+/home/nyx/C#/OEscriba/bin/Debug/net8.0/OEscriba
+/home/nyx/C#/OEscriba/bin/Debug/net8.0/OEscriba.deps.json
+/home/nyx/C#/OEscriba/bin/Debug/net8.0/OEscriba.runtimeconfig.json
+/home/nyx/C#/OEscriba/bin/Debug/net8.0/OEscriba.dll
+/home/nyx/C#/OEscriba/bin/Debug/net8.0/OEscriba.pdb
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.GeneratedMSBuildEditorConfig.editorconfig
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.AssemblyInfoInputs.cache
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.AssemblyInfo.cs
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.csproj.CoreCompileInputs.cache
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.dll
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/refint/OEscriba.dll
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.pdb
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/OEscriba.genruntimeconfig.cache
+/home/nyx/C#/OEscriba/obj/Debug/net8.0/ref/OEscriba.dll
