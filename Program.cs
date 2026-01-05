@@ -6,8 +6,25 @@ using System.Collections.Generic; // Necessário para usar List<string>
 {
     class Program
     {
-        private static int numero;
-
+    
+        static void MensagemSucesso(string mensagem)
+        {
+            Console.ForegroundColor = ConsoleColor.Green; // Texto verde
+            Console.WriteLine(mensagem);
+            Console.ResetColor(); // Volta à cor padrão
+        }
+        static void MensagemErro(string mensagem)
+        {
+            Console.ForegroundColor = ConsoleColor.Red; // Texto vermelho
+            Console.WriteLine(mensagem);
+            Console.ResetColor(); // Volta à cor padrão
+        }
+        static void MensagemLeitura(string mensagem)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow; // Texto amarelo
+            Console.WriteLine(mensagem);
+            Console.ResetColor(); // Volta à cor padrão
+        }
         static void Main(string[] args)
         {
             // O loop infinito (Coração do menu)
@@ -31,8 +48,8 @@ using System.Collections.Generic; // Necessário para usar List<string>
                 {
                     Console.WriteLine("\nEscreva sua memória (aperte Enter para salvar):");
                     // Usar File.AppendAllText para adicionar texto ao arquivo
-                    File.AppendAllText("memorias.txt", Console.ReadLine() + Environment.NewLine);
-                    Console.WriteLine("Memória salva com sucesso! Pressione qualquer tecla para voltar ao menu.");
+                    File.AppendAllText("memorias.txt", Console.ReadLine() + Environment.NewLine);     
+                    MensagemSucesso("Memória salva com sucesso! Pressione qualquer tecla para voltar ao menu.");           
                     Console.ReadKey();
                 }
                 else if (opcao == "2")
@@ -42,11 +59,11 @@ using System.Collections.Generic; // Necessário para usar List<string>
                     if (File.Exists("memorias.txt"))
                     {
                         string conteudo = File.ReadAllText("memorias.txt");
-                        Console.WriteLine(conteudo);
+                        MensagemLeitura(conteudo);
                     }
                     else
                     {
-                        Console.WriteLine("Nenhuma memória encontrada. Escreva uma nova memória primeiro!");
+                        MensagemErro("=== Nenhuma memória encontrada. Escreva uma nova memória primeiro! ===");                        
                     }
                     // Se arquivo não existir, usar if (File.Exists("memorias.txt"))
                     Console.WriteLine("\nFim da leitura. Pressione qualquer tecla para voltar ao menu.");
@@ -62,16 +79,16 @@ using System.Collections.Generic; // Necessário para usar List<string>
                         if (File.Exists("memorias.txt"))
                         {
                             File.Delete("memorias.txt");
-                            Console.WriteLine("Todas as memórias foram apagadas.");
-                        }
+                            MensagemSucesso("Todas as memórias foram apagadas.");
+                       }
                         else
                         {
-                            Console.WriteLine("Nenhuma memória para apagar.");
+                            MensagemErro("Nenhuma memória para apagar.");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Operação cancelada.");
+                        MensagemErro("Operação cancelada.");
                     }
                     Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
                     Console.ReadKey();
@@ -92,7 +109,7 @@ using System.Collections.Generic; // Necessário para usar List<string>
                         for (int i = 0; i < listaMemorias.Count; i++)
                         {
                             // Mostra: "1 - Memória"
-                            Console.WriteLine($"{i + 1} - {listaMemorias[i]}");
+                            MensagemLeitura($"{i + 1} - {listaMemorias[i]}");
                         }
                         // Lê o número que o usário digitar
                         Console.WriteLine("Digite o número da memória a ser apagada:");
@@ -109,21 +126,21 @@ using System.Collections.Generic; // Necessário para usar List<string>
 
                                 // Salva de volta no arquivo 
                                 File.WriteAllLines("memorias.txt", listaMemorias);
-                                Console.WriteLine("Memória apagada com sucesso.");
+                                MensagemSucesso("Memória apagada com sucesso.");
                             }
                             else
                             {
-                                Console.WriteLine("Número inválido! essa memória não existe.");
+                                MensagemErro("Número inválido! essa memória não existe.");
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Isso não é um número!");
+                            MensagemErro("Isso não é um número!");
                         }
                 }
                 else 
                 {
-                    Console.WriteLine("O diário está vazio. Escreva uma memória primeiro!");
+                    MensagemLeitura("O diário está vazio. Escreva uma memória primeiro!");
                 }
                     Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
                     Console.ReadKey();
