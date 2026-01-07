@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO; // IO = Input/Output de entrada e saída
-using System.Collections.Generic; // Necessário para usar List<string>
+using System.Collections.Generic;
+using System.Runtime.InteropServices.Marshalling; // Necessário para usar List<string>
 
- namespace OEscriba
+namespace OEscriba
 {
     class Program
     {
-    
+
         static void MensagemSucesso(string mensagem)
         {
             Console.ForegroundColor = ConsoleColor.Green; // Texto verde
@@ -27,8 +28,13 @@ using System.Collections.Generic; // Necessário para usar List<string>
         }
         static void Main(string[] args)
         {
+
+        bool continuarNarrativa = true;
+
+
+        {
             // O loop infinito (Coração do menu)
-            while (true)
+            while (continuarNarrativa)
             {
                 // Limpar a tela antes de mostrar menu novamente
                 Console.Clear();
@@ -148,7 +154,7 @@ using System.Collections.Generic; // Necessário para usar List<string>
                 else if (opcao == "0")
                 {
                     Console.WriteLine("Fechando diário... Até a próxima!");
-                    break; // Quebra o loop while e encerra o programa
+                    continuarNarrativa = false;
                 }
                 else
                 {
@@ -156,6 +162,9 @@ using System.Collections.Generic; // Necessário para usar List<string>
                     Console.ReadKey(); // Espere a pessoa ler antes de limpar a tela
                 }
             }
+            Console.WriteLine("Pressione qualquer tecla para fechar a janela.");
+            Console.ReadKey();
         }
+    }
     }
 }
