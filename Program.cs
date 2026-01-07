@@ -1,170 +1,165 @@
 ﻿using System;
-using System.IO; // IO = Input/Output de entrada e saída
+using System.IO; // Necessário para manipulação de arquivos
 using System.Collections.Generic;
-using System.Runtime.InteropServices.Marshalling; // Necessário para usar List<string>
 
 namespace OEscriba
 {
     class Program
     {
-
         static void MensagemSucesso(string mensagem)
         {
-            Console.ForegroundColor = ConsoleColor.Green; // Texto verde
+            Console.ForegroundColor = ConsoleColor.Green; 
             Console.WriteLine(mensagem);
-            Console.ResetColor(); // Volta à cor padrão
+            Console.ResetColor(); 
         }
         static void MensagemErro(string mensagem)
         {
-            Console.ForegroundColor = ConsoleColor.Red; // Texto vermelho
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(mensagem);
-            Console.ResetColor(); // Volta à cor padrão
+            Console.ResetColor(); 
         }
         static void MensagemLeitura(string mensagem)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow; // Texto amarelo
+            Console.ForegroundColor = ConsoleColor.Yellow; 
             Console.WriteLine(mensagem);
-            Console.ResetColor(); // Volta à cor padrão
+            Console.ResetColor(); 
+        }
+
+        static void EscreverMemoria()
+        {
+            Console.WriteLine("\nEscreva sua memória (aperte Enter para salvar):");
+            string texto = Console.ReadLine();
+            File.AppendAllText("memorias.txt", texto + Environment.NewLine);     
+            MensagemSucesso("Memória salva com sucesso! Pressione qualquer tecla para voltar ao menu.");           
+            Console.ReadKey();
+        }
+
+        static void LerMemorias()
+        {
+            Console.WriteLine("\n=== LENDO O DIÁRIO ===");
+            if (File.Exists("memorias.txt"))
+            {
+                string conteudo = File.ReadAllText("memorias.txt");
+                MensagemLeitura(conteudo);
+            }
+            else
+            {
+                MensagemErro("=== Nenhuma memória encontrada. Escreva uma nova memória primeiro! ===");                        
+            }
+            Console.WriteLine("\nFim da leitura. Pressione qualquer tecla para voltar ao menu.");
+            Console.ReadKey();
+        }
+
+        static void ApagarTodasMemorias()
+        {
+            Console.WriteLine("\nTem certeza que deseja apagar todas as memórias? (s/n)");
+            string confirmacao = Console.ReadLine();
+            if (confirmacao.ToLower() == "s")
+            {
+                if (File.Exists("memorias.txt"))
+                {
+                    File.Delete("memorias.txt");
+                    MensagemSucesso("Todas as memórias foram apagadas.");
+               }
+                else
+                {
+                    MensagemErro("Nenhuma memória para apagar.");
+                }
+            }
+            else
+            {
+                MensagemErro("Operação cancelada.");
+            }
+            Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
+            Console.ReadKey();
+        }
+
+        static void ApagarMemoriaEspecifica()
+        {
+            Console.WriteLine("\n=== LENDO O DIÁRIO ===");
+            Console.WriteLine("\n=== APAGANDO UMA MEMÓRIA ESPECÍFICA ===");
+            if (File.Exists("memorias.txt"))
+            {
+                string[] linhasArray = File.ReadAllLines("memorias.txt");
+                List<string> listaMemorias = new List<string>(linhasArray);
+
+                Console.WriteLine("Qual memória você quer apagar?");
+                for (int i = 0; i < listaMemorias.Count; i++)
+                {
+                    MensagemLeitura($"{i + 1} - {listaMemorias[i]}");
+                }
+                Console.WriteLine("Digite o número da memória a ser apagada:");
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int numeroDigitado))
+                {
+                    if (numeroDigitado > 0 && numeroDigitado <= listaMemorias.Count)
+                    {
+                        listaMemorias.RemoveAt(numeroDigitado - 1);
+                        File.WriteAllLines("memorias.txt", listaMemorias);
+                        MensagemSucesso("Memória apagada com sucesso.");
+                    }
+                    else
+                    {
+                        MensagemErro("Número inválido! essa memória não existe.");
+                    }
+                }
+                else
+                {
+                    MensagemErro("Isso não é um número!");
+                }
+            }
+            else 
+            {
+                MensagemLeitura("O diário está vazio. Escreva uma memória primeiro!");
+            }
+            Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
+            Console.ReadKey();
         }
         static void Main(string[] args)
         {
-
         bool continuarNarrativa = true;
-
-
+        while (continuarNarrativa)
         {
-            // O loop infinito (Coração do menu)
-            while (continuarNarrativa)
-            {
-                // Limpar a tela antes de mostrar menu novamente
                 Console.Clear();
-
                 Console.WriteLine("===📜 O ESCRIBA DIGITAL 📜 ===");
                 Console.WriteLine("1 - Escrever nova memória");
                 Console.WriteLine("2 - Ler memórias antigas");
-                Console.WriteLine("3 - Apagar todas as memórias (opção secreta)");
+                Console.WriteLine("3 - Apagar todas as memórias");
                 Console.WriteLine("4 - Apagar uma memória específica");
                 Console.WriteLine("0 - Sair");
                 Console.Write("Qual o seu desejo? ");
 
                 string opcao = Console.ReadLine();
 
-                // A árvore da decisão
-                if (opcao == "1")
+                switch (opcao)
                 {
-                    Console.WriteLine("\nEscreva sua memória (aperte Enter para salvar):");
-                    // Usar File.AppendAllText para adicionar texto ao arquivo
-                    File.AppendAllText("memorias.txt", Console.ReadLine() + Environment.NewLine);     
-                    MensagemSucesso("Memória salva com sucesso! Pressione qualquer tecla para voltar ao menu.");           
-                    Console.ReadKey();
-                }
-                else if (opcao == "2")
-                {
-                    Console.WriteLine("\n=== LENDO O DIÁRIO ===");
-                    // Usar File.ReadAllText para ler o conteúdo do arquivo
-                    if (File.Exists("memorias.txt"))
-                    {
-                        string conteudo = File.ReadAllText("memorias.txt");
-                        MensagemLeitura(conteudo);
-                    }
-                    else
-                    {
-                        MensagemErro("=== Nenhuma memória encontrada. Escreva uma nova memória primeiro! ===");                        
-                    }
-                    // Se arquivo não existir, usar if (File.Exists("memorias.txt"))
-                    Console.WriteLine("\nFim da leitura. Pressione qualquer tecla para voltar ao menu.");
-                    Console.ReadKey();
-                }
-                else if (opcao == "3")
-                {
-                    // Opção secreta para apagar memórias
-                    Console.WriteLine("\nTem certeza que deseja apagar todas as memórias? (s/n)");
-                    string confirmacao = Console.ReadLine();
-                    if (confirmacao.ToLower() == "s")
-                    {
-                        if (File.Exists("memorias.txt"))
-                        {
-                            File.Delete("memorias.txt");
-                            MensagemSucesso("Todas as memórias foram apagadas.");
-                       }
-                        else
-                        {
-                            MensagemErro("Nenhuma memória para apagar.");
-                        }
-                    }
-                    else
-                    {
-                        MensagemErro("Operação cancelada.");
-                    }
-                    Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
-                    Console.ReadKey();
-                }
-                else if (opcao == "4")
-                {
-                    // Opção para apagar apenas uma memória selecionada
-                    Console.WriteLine("\n=== LENDO O DIÁRIO ===");
-                    Console.WriteLine("\n=== APAGANDO UMA MEMÓRIA ESPECÍFICA ===");
-                    if (File.Exists("memorias.txt"))
-                    {
-                        // Carrega tudo para a memória RAM
-                        string[] linhasArray = File.ReadAllLines("memorias.txt");
-                        List<string> listaMemorias = new List<string>(linhasArray);
-
-                        // Mostra a lista numerada para usuário escolher
-                        Console.WriteLine("Qual memória você quer apagar?");
-                        for (int i = 0; i < listaMemorias.Count; i++)
-                        {
-                            // Mostra: "1 - Memória"
-                            MensagemLeitura($"{i + 1} - {listaMemorias[i]}");
-                        }
-                        // Lê o número que o usário digitar
-                        Console.WriteLine("Digite o número da memória a ser apagada:");
-                        string input = Console.ReadLine();
-
-                        // Garantindo que é esse número 
-                        if (int.TryParse(input, out int numeroDigitado))
-                        {
-                            // Validação, número maior que 0 e menor ou igual ao total de memórias
-                            if (numeroDigitado > 0 && numeroDigitado <= listaMemorias.Count)
-                            {
-                                // Remove (lembrar do -1 pois a lista começa no 0)
-                                listaMemorias.RemoveAt(numeroDigitado - 1);
-
-                                // Salva de volta no arquivo 
-                                File.WriteAllLines("memorias.txt", listaMemorias);
-                                MensagemSucesso("Memória apagada com sucesso.");
-                            }
-                            else
-                            {
-                                MensagemErro("Número inválido! essa memória não existe.");
-                            }
-                        }
-                        else
-                        {
-                            MensagemErro("Isso não é um número!");
-                        }
-                }
-                else 
-                {
-                    MensagemLeitura("O diário está vazio. Escreva uma memória primeiro!");
-                }
-                    Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
-                    Console.ReadKey();
-                }
-                else if (opcao == "0")
-                {
+                    case "1":
+                    EscreverMemoria();
+                    break;
+                    case "2":
+                    LerMemorias();
+                    break;
+                    case "3":
+                    ApagarTodasMemorias();
+                    break;
+                    case "4":
+                    ApagarMemoriaEspecifica();
+                    break;
+                    case "0":
                     Console.WriteLine("Fechando diário... Até a próxima!");
                     continuarNarrativa = false;
-                }
-                else
-                {
+                    break;
+                    default:
                     Console.WriteLine("Opção desconhecida, viajante.");
                     Console.ReadKey(); // Espere a pessoa ler antes de limpar a tela
+                    break;
                 }
             }
-            Console.WriteLine("Pressione qualquer tecla para fechar a janela.");
+
+            
+            Console.WriteLine("O programa foi encerrado corretamente.");
             Console.ReadKey();
         }
     }
     }
-}

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OEscriba")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f0e5b5fc8ad7a200019758dea1cf2f8e0b441516")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d10ac1a961913af587053800ae7e4f22afaf623e")]
 [assembly: System.Reflection.AssemblyProductAttribute("OEscriba")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OEscriba")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
